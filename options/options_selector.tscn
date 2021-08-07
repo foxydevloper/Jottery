@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://options/options_selector.gd" type="Script" id=1]
+
+[node name="options_selector" type="VBoxContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 142.0
+margin_bottom = 31.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="text_size" type="HBoxContainer" parent="."]
+margin_right = 136.0
+margin_bottom = 24.0
+
+[node name="label" type="Label" parent="text_size"]
+margin_top = 5.0
+margin_right = 58.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Font Size"
+
+[node name="spin_box" type="SpinBox" parent="text_size"]
+margin_left = 62.0
+margin_right = 136.0
+margin_bottom = 24.0
+value = 8.0
+allow_greater = true
+suffix = "px"
+
+[node name="wrap_tabs" type="HBoxContainer" parent="."]
+margin_top = 28.0
+margin_right = 136.0
+margin_bottom = 52.0
+
+[node name="label" type="Label" parent="wrap_tabs"]
+margin_top = 5.0
+margin_right = 108.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Wrap Tabs"
+
+[node name="check_box" type="CheckBox" parent="wrap_tabs"]
+margin_left = 112.0
+margin_right = 136.0
+margin_bottom = 24.0

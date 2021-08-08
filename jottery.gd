@@ -17,6 +17,8 @@ onready var rename_jot_dialog_node = get_node(rename_jot_dialog)
 
 var options
 
+const HTML5_AUTOSAVE_INTERVAL = 1.0
+
 
 func _ready():
 	if JotterySaving.found_save():
@@ -27,6 +29,13 @@ func _ready():
 	options_selector_node.set_options(options)
 	update_options()
 	get_tree().set_auto_accept_quit(false)
+	# Notification quit requests don't seem to work on HTML5.
+	# We will auto save on a timer instead.
+	if OS.has_feature("HTML5"):
+		var timer = Timer.new()
+		timer.connect("timeout", self, "save")
+		add_child(timer)
+		timer.start(HTML5_AUTOSAVE_INTERVAL)
 
 
 func instantiate_jot(jot_name):

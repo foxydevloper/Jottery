@@ -47,3 +47,23 @@ text = "Wrap Tabs"
 margin_left = 112.0
 margin_right = 136.0
 margin_bottom = 24.0
+
+[node name="jottery_theme" type="HBoxContainer" parent="."]
+margin_top = 56.0
+margin_right = 136.0
+margin_bottom = 76.0
+
+[node name="label" type="Label" parent="jottery_theme"]
+margin_top = 3.0
+margin_right = 89.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "Theme"
+
+[node name="menu_button" type="MenuButton" parent="jottery_theme"]
+margin_left = 93.0
+margin_right = 136.0
+margin_bottom = 20.0
+text = "Light"
+flat = false
+items = [ "Light", null, 0, false, false, 0, 0, null, "", false, "Dark", null, 0, false, false, 1, 0, null, "", false ]

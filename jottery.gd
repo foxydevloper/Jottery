@@ -1,9 +1,6 @@
 extends Control
 
 
-export var default_text_size = 16
-export var default_wrap_tabs = true
-
 export var zoom_power = 1
 
 export var jot_template: PackedScene
@@ -18,9 +15,7 @@ onready var options_dialog_node = get_node(options_dialog)
 onready var options_selector_node = get_node(options_selector)
 onready var rename_jot_dialog_node = get_node(rename_jot_dialog)
 
-onready var jottery_theme = theme
-
-var options = JotteryOptions.new()
+var options
 
 
 func _ready():
@@ -28,16 +23,21 @@ func _ready():
 		print("Found save file.")
 		load_from_save()
 	else:
-		options.text_size = default_text_size
-		options.wrap_tabs = default_wrap_tabs
+		options = JotteryOptions.new()
 	options_selector_node.set_options(options)
 	update_options()
 	get_tree().set_auto_accept_quit(false)
 
 
-func new_jot():
+func instantiate_jot(jot_name):
 	var jot = jot_template.instance()
-	jot.name = 'Jot 1'
+	jot.name = jot_name
+	jot.theme = null  # We want the instantiated jot to inherit the theme.
+	return jot
+
+
+func new_jot():
+	var jot = instantiate_jot('Jot 1')
 	jot_tabs_node.add_child(jot, true)
 	jot_tabs_node.current_tab = jot_tabs_node.get_tab_count() - 1
 	jot_tabs_node.get_current_tab_control().grab_focus()
@@ -101,7 +101,9 @@ func open_options():
 
 
 func update_options():
-	jottery_theme.default_font.size = options.text_size
+	var updated_theme: Theme = options.get_theme_scene().duplicate()
+	updated_theme.default_font.size = options.text_size
+	theme = updated_theme
 
 
 func confirm_options_selector():
@@ -123,8 +125,7 @@ func load_serialized_jots(serialized_jots):
 	for jot_tab in jot_tabs_node.get_children():
 		jot_tab.queue_free()
 	for serialized_jot in serialized_jots:
-		var jot = jot_template.instance()
-		jot.name = serialized_jot['name']
+		var jot = instantiate_jot(serialized_jot['name'])
 		jot.set_jot_text(serialized_jot['text'])
 		jot_tabs_node.add_child(jot)
 

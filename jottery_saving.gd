@@ -10,14 +10,19 @@ const save_file_path = "user://jottery"
 static func serialize_options(options):
 	return {
 		'text_size': options.text_size,
-		'wrap_tabs': options.wrap_tabs
+		'wrap_tabs': options.wrap_tabs,
+		'theme': JotteryOptions.theme_to_text(options.theme)
 	}
 
 
 static func deserialize_options(serialized_options):
 	var new_options = JotteryOptions.new()
-	new_options.text_size = serialized_options.get('text_size')
-	new_options.wrap_tabs = serialized_options.get('wrap_tabs')
+	new_options.text_size = serialized_options['text_size']
+	new_options.wrap_tabs = serialized_options['wrap_tabs']
+	if serialized_options.get('theme'):
+		new_options.theme = JotteryOptions.theme_from_text(
+			serialized_options['theme']
+		)
 	return new_options
 
 

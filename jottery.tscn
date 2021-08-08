@@ -144,7 +144,7 @@ margin_bottom = 23.0
 hint_tooltip = "F2	"
 shortcut_in_tooltip = false
 shortcut = SubResource( 7 )
-text = "Rename jot"
+text = "Rename Jot"
 __meta__ = {
 "_edit_use_anchors_": false
 }
